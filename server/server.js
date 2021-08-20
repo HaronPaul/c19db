@@ -11,7 +11,22 @@ const publicPath = path.join(__dirname, '..', 'public');
 const app = express();
 dotenv.config();
 
-app.use(cors());
+// app.use(cors());
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*")
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested, Content-Type, Accept Authorization"
+    )
+    if (req.method === "OPTIONS") {
+      res.header(
+        "Access-Control-Allow-Methods",
+        "POST, PUT, PATCH, GET, DELETE"
+      )
+      return res.status(200).json({})
+    }
+    next()
+  })
 //Mount routers
 
 app.use('/home', homeRouter);
@@ -25,6 +40,8 @@ app.use(express.static(publicPath));app.get('*', (req, res) => {
 
 // Listen to the port
 const PORT = process.env.PORT || 5000;
+const HOST = process.env.PORT ? '0.0.0.0' : '127.0.0.1'
+
 app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);
 });
