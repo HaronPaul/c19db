@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const express = require('express')
 const { performance } = require('perf_hooks');
 
 // @desc    This will load the data from output.json in src/assets folder
@@ -34,7 +35,7 @@ const getData = async (req, res) => {
 function loadData() {
     return new Promise((resolve, reject) => {
         // console.log(path.join(__dirname, '../../src/assets/output.json'));
-        fs.readFile(path.join(__dirname, '../../src/assets/output.json'), (err, results) => {
+        fs.readFile(express.static(path.join(__dirname, '../../src/assets/output.json')), (err, results) => {
             if (err)
                 reject(err);
             else
