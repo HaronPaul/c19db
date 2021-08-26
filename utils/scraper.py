@@ -17,7 +17,6 @@ def getNews(strDate):
 	div_tag = soup.find('div', id='index-wrap')
 	ul_tags = div_tag.find_all('ul')
 
-
 	li_tags = []
 	for ul in ul_tags:	
 		li_tags.extend(ul.find_all('li'))

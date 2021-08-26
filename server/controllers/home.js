@@ -6,7 +6,6 @@ const { performance } = require('perf_hooks');
 // @route   /home
 // @method  GET
 const getData = async (req, res) => {
-    let t0 = performance.now();
 
     const response = {
         success: false,
@@ -21,14 +20,12 @@ const getData = async (req, res) => {
             ...response,
             data: JSON.parse(data)
         });
+
     } catch (err) {
         console.log(err.message);
         response.message = 'Failed to retrieve data';
         res.status(400).json(response);
     }
-
-    let t1 = performance.now();
-    console.log("GET /home took " + (t1 - t0) + " milliseconds.");
 };
 
 function loadData() {
